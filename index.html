@@ -221,14 +221,14 @@ body::before {
 .chapter-num {
   font-family: 'Share Tech Mono', monospace;
   font-size: 9px; letter-spacing: 0.55em;
-  color: rgba(201,168,76,0.45);
+  color: rgba(201,168,76,0.75);
   margin-bottom: 32px;
   display: flex; align-items: center; gap: 14px;
 }
 .chapter-num::after {
   content: '';
   flex: 1; height: 1px;
-  background: linear-gradient(to right, rgba(201,168,76,0.2), transparent);
+  background: linear-gradient(to right, rgba(201,168,76,0.3), transparent);
 }
 
 /* ─── 章テキスト ─── */
@@ -269,11 +269,11 @@ body::before {
 /* ─── 物語ページ ─── */
 .story-page {
   position: relative;
-  max-width: 560px; margin: 0 auto;
-  padding: 50px 40px;
-  background: rgba(10,8,4,0.7);
+  max-width: 620px; margin: 0 auto;
+  padding: 50px 40px 50px 44px;
+  background: rgba(30,22,12,0.85);
   border: 1px solid rgba(201,168,76,0.12);
-  border-left: 3px solid rgba(201,168,76,0.2);
+  border-left: 3px solid rgba(201,168,76,0.25);
   opacity: 0;
   transform: perspective(900px) rotateX(-8deg) translateY(24px);
   transform-origin: top center;
@@ -283,14 +283,7 @@ body::before {
   opacity: 1;
   transform: perspective(900px) rotateX(0deg) translateY(0);
 }
-.story-page::before {
-  content: '物語の断片';
-  position: absolute; top: -10px; left: 28px;
-  background: #0c0905; padding: 0 12px;
-  font-family: 'Share Tech Mono', monospace;
-  font-size: 9px; letter-spacing: 0.35em;
-  color: rgba(201,168,76,0.4);
-}
+.story-page::before { display: none; }
 .story-block-text {
   font-family: 'Shippori Mincho', serif;
   font-size: clamp(14px, 3.8vw, 16px);
@@ -358,32 +351,53 @@ body::before {
 
 .btn-scan {
   display: inline-flex; align-items: center; justify-content: center; gap: 14px;
-  padding: 20px 52px;
-  background: rgba(201,168,76,0.05);
-  border: 1px solid rgba(201,168,76,0.5);
-  color: var(--gold2);
+  padding: 24px 56px;
+  background: linear-gradient(135deg, rgba(201,168,76,0.25) 0%, rgba(201,168,76,0.1) 100%);
+  border: 1.5px solid var(--gold);
+  color: var(--gold3);
   font-family: 'Shippori Mincho', serif;
-  font-size: clamp(14px, 4vw, 17px);
+  font-size: clamp(16px, 4.5vw, 20px);
   font-weight: 700; letter-spacing: 0.22em;
   cursor: pointer; position: relative; overflow: hidden;
   transition: all 0.4s;
   clip-path: polygon(14px 0%, 100% 0%, calc(100% - 14px) 100%, 0% 100%);
   z-index: 1;
-  box-shadow: 0 0 30px rgba(201,168,76,0.08), inset 0 0 20px rgba(201,168,76,0.03);
+  box-shadow:
+    0 0 30px rgba(201,168,76,0.3),
+    0 0 80px rgba(201,168,76,0.12),
+    inset 0 0 20px rgba(201,168,76,0.05);
+  animation: btn-pulse 2.5s ease-in-out infinite;
+}
+@keyframes btn-pulse {
+  0%,100% {
+    box-shadow: 0 0 30px rgba(201,168,76,0.3), 0 0 80px rgba(201,168,76,0.12);
+  }
+  50% {
+    box-shadow: 0 0 50px rgba(201,168,76,0.55), 0 0 120px rgba(201,168,76,0.25);
+  }
 }
 .btn-scan::before {
   content: '';
   position: absolute; inset: 0;
-  background: linear-gradient(135deg, rgba(201,168,76,0.1) 0%, transparent 60%);
+  background: linear-gradient(135deg, rgba(201,168,76,0.15) 0%, transparent 60%);
   opacity: 0; transition: opacity 0.3s;
 }
 .btn-scan:hover {
-  box-shadow: var(--glow-gold);
-  background: rgba(201,168,76,0.1);
+  background: linear-gradient(135deg, rgba(201,168,76,0.4) 0%, rgba(201,168,76,0.2) 100%);
+  transform: translateY(-2px);
 }
 .btn-scan:hover::before { opacity: 1; }
 .btn-scan:active { transform: scale(0.97); }
-.btn-dot { width: 7px; height: 7px; border-radius: 50%; background: var(--gold); box-shadow: var(--glow-gold); animation: dot-pulse 2s ease-in-out infinite; }
+.btn-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--gold2); box-shadow: 0 0 8px var(--gold); animation: dot-pulse 1.5s ease-in-out infinite; flex-shrink: 0; }
+.btn-scan-arrow {
+  font-size: 18px;
+  animation: arrow-bounce 1.2s ease-in-out infinite;
+  display: inline-block;
+}
+@keyframes arrow-bounce {
+  0%,100% { transform: translateY(0); }
+  50% { transform: translateY(4px); }
+}
 
 /* ─── プランページ ─── */
 .plans-chapter {
@@ -800,14 +814,13 @@ video { width: 100%; height: 100%; object-fit: cover; transform: scaleX(-1); dis
   <div class="ink-divider">✦</div>
 
   <!-- 第三章：物語の予告 -->
-  <div class="page fade-up" style="padding-bottom:0;border-bottom:none">
-    <p class="chapter-num">第三章 // 物語の予告</p>
-  </div>
+  <div class="ink-divider">✦</div>
   <div class="story-page fade-up">
+    <p class="chapter-num">第三章 // 物語の予告</p>
     <p class="story-block-text">
-      私は、孤独だった。<br>
+      私は、孤独だった。
       でもそれに気づいたのは、<em>星を見つけてからだ。</em><br><br>
-      まだ、星は手に入っていない。<br>
+      まだ、星は手に入っていない。
       でも私は知っている。孤独は、<em>目的を誰かに話したから</em>、なくなるのだと。<br><br>
       夜空を見上げる。あの星は今夜も、少しだけ瞬いている。<br>
       <em>「急がなくていい。お前が来るの、待ってるから」</em>
@@ -852,8 +865,9 @@ video { width: 100%; height: 100%; object-fit: cover; transform: scaleX(-1); dis
     <button class="btn-scan" id="btn-to-scanner">
       <span class="btn-dot"></span>
       瞳をスキャンする
+      <span class="btn-scan-arrow">↓</span>
     </button>
-    <p style="margin-top:28px;font-family:'Shippori Mincho',serif;font-size:12px;letter-spacing:0.2em;color:rgba(201,168,76,0.45);">
+    <p style="margin-top:20px;font-family:'Shippori Mincho',serif;font-size:11px;letter-spacing:0.2em;color:rgba(201,168,76,0.5);">
       スキャン後、注文フォームへ進めます
     </p>
   </div>
@@ -865,19 +879,19 @@ video { width: 100%; height: 100%; object-fit: cover; transform: scaleX(-1); dis
     <p class="chapter-num" style="justify-content:center;margin-bottom:8px">第六章 // あなたのノートを選ぶ</p>
     <p class="plans-chapter-sub">PERSONAL SF NOVEL</p>
     <div class="plan-cards">
-      <div class="plan-card">
+      <div class="plan-card" onclick="window.open('https://docs.google.com/forms/d/e/1FAIpQLSeO_uqr6L9QWeFSeNzc6UW06ysdNvKEUapBheQyLbZsun__tw/viewform','_blank')" style="cursor:pointer">
         <p class="plan-name">梅</p>
         <p class="plan-price">¥3,980</p>
         <p class="plan-sub">3,000字</p>
         <p class="plan-desc">AIベース＋作家監修。冒頭とラストはすべて手書き。</p>
       </div>
-      <div class="plan-card featured">
+      <div class="plan-card featured" onclick="window.open('https://docs.google.com/forms/d/e/1FAIpQLSeO_uqr6L9QWeFSeNzc6UW06ysdNvKEUapBheQyLbZsun__tw/viewform','_blank')" style="cursor:pointer">
         <p class="plan-name">竹 ★</p>
         <p class="plan-price">¥6,980</p>
         <p class="plan-sub">3,000字・完全編集</p>
         <p class="plan-desc">あなたにしか刺さらない表現を足す。最も人気のプラン。</p>
       </div>
-      <div class="plan-card">
+      <div class="plan-card" onclick="window.open('https://docs.google.com/forms/d/e/1FAIpQLSeO_uqr6L9QWeFSeNzc6UW06ysdNvKEUapBheQyLbZsun__tw/viewform','_blank')" style="cursor:pointer">
         <p class="plan-name">松</p>
         <p class="plan-price">¥12,800</p>
         <p class="plan-sub">竹＋声の朗読</p>
@@ -886,12 +900,8 @@ video { width: 100%; height: 100%; object-fit: cover; transform: scaleX(-1); dis
     </div>
   </div>
 
-  <!-- フッター -->
   <div class="lp-footer">
-    <p>
-      このサービスはSF的想像力による体験型エンタメです。<br>
-      © 未来ノート / 井上雄介
-    </p>
+    <p>このサービスはSF的想像力による体験型エンタメです。<br>© 未来ノート</p>
   </div>
 
 </div>
