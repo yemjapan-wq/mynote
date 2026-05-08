@@ -320,14 +320,6 @@ body::before {
   align-items: center; justify-content: center;
   text-align: center; padding: 80px 28px;
   position: relative;
-  opacity: 0;
-  transform: perspective(900px) rotateX(-8deg) translateY(24px);
-  transform-origin: top center;
-  transition: opacity 1s ease, transform 1s ease;
-}
-.scan-chapter.visible {
-  opacity: 1;
-  transform: perspective(900px) rotateX(0deg) translateY(0);
 }
 
 /* 魔法陣っぽい装飾 */
@@ -397,14 +389,6 @@ body::before {
 .plans-chapter {
   max-width: 640px; margin: 0 auto;
   padding: 40px 28px 60px;
-  opacity: 0;
-  transform: perspective(900px) rotateX(-8deg) translateY(24px);
-  transform-origin: top center;
-  transition: opacity 1s ease, transform 1s ease;
-}
-.plans-chapter.visible {
-  opacity: 1;
-  transform: perspective(900px) rotateX(0deg) translateY(0);
 }
 .plans-chapter-title {
   font-family: 'Shippori Mincho', serif;
@@ -1478,24 +1462,29 @@ function fadeTransition(cb) {
   overlay.classList.add('active');
   setTimeout(() => { cb(); overlay.classList.remove('active'); }, 900);
 }
-document.getElementById('btn-to-scanner').addEventListener('click', () => {
-  document.getElementById('phase-landing').style.display = 'none';
-  document.querySelectorAll('.phase').forEach(p => p.classList.remove('active'));
-  const scanner = document.getElementById('phase-scanner');
-  scanner.style.display = 'flex';
-  scanner.classList.add('active');
-  startCamera();
-  window.scrollTo(0, 0);
-});
+document.addEventListener('DOMContentLoaded', () => {
+  const btnScanner = document.getElementById('btn-to-scanner');
+  if (btnScanner) {
+    btnScanner.addEventListener('click', () => {
+      document.getElementById('phase-landing').style.display = 'none';
+      document.querySelectorAll('.phase').forEach(p => p.classList.remove('active'));
+      const scanner = document.getElementById('phase-scanner');
+      scanner.style.display = 'flex';
+      scanner.classList.add('active');
+      startCamera();
+      window.scrollTo(0, 0);
+    });
+  }
 
-/* スクロールアニメーション */
-const fadeEls = document.querySelectorAll('.fade-up');
-const observer = new IntersectionObserver((entries) => {
-  entries.forEach(e => {
-    if (e.isIntersecting) { e.target.classList.add('visible'); }
-  });
-}, { threshold: 0.12 });
-fadeEls.forEach(el => observer.observe(el));
+  /* スクロールアニメーション */
+  const fadeEls = document.querySelectorAll('.fade-up');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) { e.target.classList.add('visible'); }
+    });
+  }, { threshold: 0.08 });
+  fadeEls.forEach(el => observer.observe(el));
+});
 
 /* ════════════════════════════════════
    DRAW IRIS MARKER
