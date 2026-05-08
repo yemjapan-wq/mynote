@@ -187,14 +187,10 @@ body::before {
   position: relative;
   max-width: 620px; margin: 0 auto;
   padding: 60px 40px 70px;
-  background:
-    linear-gradient(135deg, rgba(139,105,20,0.04) 0%, transparent 50%),
-    rgba(18,13,7,0.6);
-  border: 1px solid rgba(201,168,76,0.1);
-  border-top-color: rgba(201,168,76,0.18);
+  background: rgba(30,22,12,0.85);
+  border: 1px solid rgba(201,168,76,0.15);
+  border-top-color: rgba(201,168,76,0.25);
   margin-bottom: 2px;
-
-  /* ページめくりアニメーション */
   opacity: 0;
   transform: perspective(900px) rotateX(-8deg) translateY(24px);
   transform-origin: top center;
@@ -241,13 +237,13 @@ body::before {
   font-size: clamp(15px, 4vw, 18px);
   line-height: 2.8;
   letter-spacing: 0.05em;
-  color: #d4c9b0;
+  color: #f0e8d0;
 }
 .chapter-text .blank { display: block; height: 1em; }
 .chapter-text strong {
-  color: #e8dfc8;
+  color: var(--gold2);
   font-weight: 700;
-  text-shadow: 0 0 20px rgba(201,168,76,0.2);
+  text-shadow: 0 0 20px rgba(201,168,76,0.3);
 }
 
 /* ─── 羽根ペンの飾り区切り ─── */
@@ -298,7 +294,7 @@ body::before {
 .story-block-text {
   font-family: 'Shippori Mincho', serif;
   font-size: clamp(14px, 3.8vw, 16px);
-  line-height: 2.8; color: #c8bda0;
+  line-height: 2.8; color: #f0e8d0;
 }
 .story-block-text em { color: var(--gold2); font-style: normal; }
 
@@ -1484,9 +1480,10 @@ function fadeTransition(cb) {
 }
 document.getElementById('btn-to-scanner').addEventListener('click', () => {
   document.getElementById('phase-landing').style.display = 'none';
-  document.getElementById('phase-scanner').style.display = '';
   document.querySelectorAll('.phase').forEach(p => p.classList.remove('active'));
-  document.getElementById('phase-scanner').classList.add('active');
+  const scanner = document.getElementById('phase-scanner');
+  scanner.style.display = 'flex';
+  scanner.classList.add('active');
   startCamera();
   window.scrollTo(0, 0);
 });
@@ -1678,11 +1675,11 @@ function showResult() {
         <h2 class="cta-headline">あなたの瞳が語る物語を、<br>SF作家が3,000字で書きます。</h2>
         <p class="cta-body">虹彩の色・左右のバランス・瞳孔の深さ。この3つのデータを起点に、あなただけの未来への手紙を書きます。占いではなく、あなたの今を読み解いた完全オリジナルの創作物。</p>
         <p class="cta-fineprint">PERSONAL SF NOVEL // 3,000 CHARACTERS // CRAFTED BY HUMAN</p>
-        <span class="btn-cta" onclick="window.open('https://docs.google.com/forms/d/e/1FAIpQLSeO_uqr6L9QWeFSeNzc6UW06ysdNvKEUapBheQyLbZsun__tw/viewform','_blank')" style="cursor:pointer">
+        <a class="btn-cta" href="https://docs.google.com/forms/d/e/1FAIpQLSeO_uqr6L9QWeFSeNzc6UW06ysdNvKEUapBheQyLbZsun__tw/viewform" target="_blank" rel="noopener">
           ▶ 未来ノートを注文する
           <span class="btn-cta-arrow">→</span>
           <span class="btn-cta-price">FROM ¥3,980</span>
-        </span>
+        </a>
         <div class="cta-plan-hint">
           <span><strong>梅</strong> ¥3,980</span>
           <span><strong>竹</strong> ¥6,980</span>
